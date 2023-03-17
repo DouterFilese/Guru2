@@ -3,6 +3,7 @@
 =========== VARIÁVEIS =============
 */
 
+
 	$resp=array();
 	// Variáveis Obrigatórias
 	$resp['organizador']='';
