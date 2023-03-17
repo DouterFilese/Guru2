@@ -1,0 +1,37 @@
+
+/*
+=========== VARIÁVEIS =============
+*/
+
+	$resp=array();
+	// Variáveis Obrigatórias
+	$resp['organizador']='';
+	$resp['ll_resumo']='';
+	$resp['ll_comitente']='';
+	// Variáveis relevantes
+	$resp['ll_extra']='';
+	$resp['ll_uf']='';
+	$resp['ll_cidade']='';
+	$resp['ll_numero']='';
+	$resp['ll_edital']='';
+	$resp['ll_processo']='';
+	$resp['ll_principal']='';
+	$resp['ll_natureza']='';
+	$resp['ll_data_publicacao']='';
+	$resp['ll_inicio_acolhimento_propostas']='';
+	$resp['ll_limite_acolhimento_propostas']='';
+	$resp['ll_abertura_propostas']='';
+	$resp['ll_data_hora_pregao']='';
+	$resp['ll_data_considerada']='';
+	$resp['ll_lotes']='';
+	$resp['ll_temp']='';
+	// Variáveis passíveis de mudança
+	$resp['ll_data_cadastro']='';
+	// Outras variáveis
+	$resp['ll_pregoeiro']='';
+	$resp['ll_tipo']='';
+	$resp['ll_particip_fornecedor']='';
+	$resp['ll_prazo_impugnacao']='';
+	$resp['ll_situacao']='';
+	echo NovaLicitacao ($resp);
+
