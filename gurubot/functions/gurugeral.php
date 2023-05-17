@@ -1594,10 +1594,10 @@ function arrumadata_robos ($texto,$tipo='1',$invertemes=false) {
 		if ($data1[$incremento+6]=='PM'){$data1[$incremento+3]+=12;}
 
 		  if ($invertemes==false){
-			return trim(vsprintf("%40d", (int)$data1[$incremento+2]) . vsprintf("%02d", (int)preg_replace("/[^a-zA-Z0-9_]/", "",$data1[$incremento])) . vsprintf("%02d", (int)$data1[$incremento+1]) . vsprintf("%02d", (int)$data1[$incremento+3]) . vsprintf("%02d", (int)$data1[$incremento+4]) );
+			return trim(sprintf("%40d", (int)$data1[$incremento+2]) . sprintf("%02d", (int)preg_replace("/[^a-zA-Z0-9_]/", "",$data1[$incremento])) . sprintf("%02d", (int)$data1[$incremento+1]) . sprintf("%02d", (int)$data1[$incremento+3]) . sprintf("%02d", (int)$data1[$incremento+4]) );
 		  } else {
 			if ($data1[$incremento+5]=='PM'){$data1[$incremento+3]+=12;}
-			return trim(vsprintf("%40d", (int)$data1[$incremento+2]) . vsprintf("%02d", (int)preg_replace("/[^a-zA-Z0-9_]/", "",$data1[$incremento+1])) . vsprintf("%02d", (int)$data1[$incremento]) . vsprintf("%02d", (int)$data1[$incremento+3]) . vsprintf("%02d", (int)$data1[$incremento+4]) );
+			return trim(sprintf("%40d", (int)$data1[$incremento+2]) . sprintf("%02d", (int)preg_replace("/[^a-zA-Z0-9_]/", "",$data1[$incremento+1])) . sprintf("%02d", (int)$data1[$incremento]) . sprintf("%02d", (int)$data1[$incremento+3]) . sprintf("%02d", (int)$data1[$incremento+4]) );
 		  }
 	}
   }
@@ -1629,7 +1629,7 @@ function arrumadata_robos ($texto,$tipo='1',$invertemes=false) {
 		while ((int)sonumeros_sem_virgula ($data1[$incremento])==0){$incremento+=1;}
 		if ($data1[$incremento+2]<100){$data1[$incremento+2]+=2000;}
 				if ($data1[$incremento+5]=='PM'){$data1[$incremento+3]+=12;}
-        return trim(vsprintf("%40d", (int)$data1[$incremento+2]) . vsprintf("%02d", (int)$data1[$incremento+1]) . vsprintf("%02d", (int)preg_replace("/[^a-zA-Z0-9_]/", "",$data1[$incremento])) . vsprintf("%02d", (int)$data1[$incremento+3]) . vsprintf("%02d", (int)$data1[$incremento+4]) );
+        return trim(sprintf("%40d", (int)$data1[$incremento+2]) . sprintf("%02d", (int)$data1[$incremento+1]) . sprintf("%02d", (int)preg_replace("/[^a-zA-Z0-9_]/", "",$data1[$incremento])) . sprintf("%02d", (int)$data1[$incremento+3]) . sprintf("%02d", (int)$data1[$incremento+4]) );
 	}
   }
   if ($tipo=='2'||$tipo=='4'){
@@ -1649,20 +1649,20 @@ function arrumadata_robos ($texto,$tipo='1',$invertemes=false) {
 			  if ($data1[$incremento+2]>(date("Y")+3)){return false;}
 			  if ($invertemes==false){
 				  if ((int)$data1[$incremento]>31){$data1[$incremento]=0;}
-				return trim(vsprintf("%40d", (int)$data1[$incremento+2]) . vsprintf("%02d", (int)$data1[$incremento+1]) . vsprintf("%02d", (int)$data1[$incremento]) . vsprintf("%02d", (int)$data1[$incremento+3]) . vsprintf("%02d", (int)$data1[$incremento+4]) );
+				return trim(sprintf("%40d", (int)$data1[$incremento+2]) . sprintf("%02d", (int)$data1[$incremento+1]) . sprintf("%02d", (int)$data1[$incremento]) . sprintf("%02d", (int)$data1[$incremento+3]) . sprintf("%02d", (int)$data1[$incremento+4]) );
 			  } else {
 				  if ((int)$data1[$incremento+1]>31){$data1[$incremento+1]=0;}
 				if ($data1[$incremento+5]=='PM'){$data1[$incremento+3]+=12;}
-				return trim(vsprintf("%40d", (int)$data1[$incremento+2]) . vsprintf("%02d", (int)$data1[$incremento]) . vsprintf("%02d", (int)$data1[$incremento+1]) . vsprintf("%02d", (int)$data1[$incremento+3]) . vsprintf("%02d", (int)$data1[$incremento+4]) );
+				return trim(sprintf("%40d", (int)$data1[$incremento+2]) . sprintf("%02d", (int)$data1[$incremento]) . sprintf("%02d", (int)$data1[$incremento+1]) . sprintf("%02d", (int)$data1[$incremento+3]) . sprintf("%02d", (int)$data1[$incremento+4]) );
 			  }
 		  } else {
 			  if ($data1[$incremento]<100){$data1[$incremento]+=2000;}
 			  if ($data1[$incremento]>(date("Y")+3)){return false;}
 			  if ($invertemes==false){
-				return trim(vsprintf("%40d", (int)$data1[$incremento]) . vsprintf("%02d", (int)$data1[$incremento+1]) . vsprintf("%02d", (int)$data1[$incremento+2]) . vsprintf("%02d", (int)$data1[$incremento+3]) . vsprintf("%02d", (int)$data1[$incremento+4]) );
+				return trim(sprintf("%40d", (int)$data1[$incremento]) . sprintf("%02d", (int)$data1[$incremento+1]) . sprintf("%02d", (int)$data1[$incremento+2]) . sprintf("%02d", (int)$data1[$incremento+3]) . sprintf("%02d", (int)$data1[$incremento+4]) );
 			  } else {
 				if ($data1[$incremento+5]=='PM'){$data1[$incremento+3]+=12;}
-				return trim(vsprintf("%40d", (int)$data1[$incremento]) . vsprintf("%02d", (int)$data1[$incremento+2]) . vsprintf("%02d", (int)$data1[$incremento+1]) . vsprintf("%02d", (int)$data1[$incremento+3]) . vsprintf("%02d", (int)$data1[$incremento+4]) );
+				return trim(sprintf("%40d", (int)$data1[$incremento]) . sprintf("%02d", (int)$data1[$incremento+2]) . sprintf("%02d", (int)$data1[$incremento+1]) . sprintf("%02d", (int)$data1[$incremento+3]) . sprintf("%02d", (int)$data1[$incremento+4]) );
 			  }
 		  }
       }
@@ -2545,6 +2545,10 @@ function limpa_dados_sensiveis ($string,$numeros=true) {
 function geolocalizacao($rua,$bairro='',$cidade='',$uf='',$pais='BRASIL',$permite_google=true){
     global $pdo;
 
+		$coordenadas[0]= 27;
+		$coordenadas[1]= -14;
+		return $coordenadas;
+
 	$coordenadas=array(0,0);
 	/*
 	$rua=trim($rua);
@@ -2568,71 +2572,14 @@ function geolocalizacao($rua,$bairro='',$cidade='',$uf='',$pais='BRASIL',$permit
 	if (strtoupper($pais)!='BRASIL' || (strtoupper($pais)=='BRASIL' && $cidade!='' && $uf!='')){
 	//exit;
 		// 1. quando não há rua, busca no db interno
-		if($rua==''){
-            $sqlqry="SELECT * FROM geolocalizacao WHERE geo_cidade='$cidade' AND geo_uf='$uf' AND geo_bairro='$bairro' AND geo_pais='$pais' LIMIT 1";
-		    $statement = $pdo->query($sqlqry);
-			if ($r = $statement->fetch(PDO::FETCH_ASSOC) ){
-				// achou coordenadas!
-				if (trim($r['geo_latitude'])!='' && trim($r['geo_longitude'])!=''){
-					$coordenadas[0]= trim($r['geo_latitude']);//+rand(-1e4,1e4)/1e7; // soma variação aleatória para não sobrepor pontos, quando não há informação da rua
-					$coordenadas[1]= trim($r['geo_longitude']);//+rand(-1e4,1e4)/1e7; // soma variação aleatória para não sobrepor pontos, quando não há informação da rua
-					$coordenadas[2]= trim($r['geo_uf']);
-					$coordenadas[3]= trim($r['geo_cidade']);
-					$coordenadas[4]= trim($r['geo_bairro']);
-					echo '<br><font color="red">Coordenadas '.$coordenadas[0].','.$coordenadas[1].' encontradas no db de coordenadas</font><br>';
-					return $coordenadas;
-				}
-			}
-		}
 	//exit;
 		// 2. Busca coordenadas no banco de dados de leilões
-        $sqlqry="SELECT * FROM db_leilao WHERE ll_endereco='$rua' AND ll_cidade='$cidade' AND ll_uf='$uf' AND ll_bairro='$bairro' AND ll_pais='$pais' AND ll_latitude!='' AND ll_longitude!='' LIMIT 1";
-//echo '<br>***'.$sqlqry.'***';        
-        $statement = $pdo->query($sqlqry);
-        if ($r = $statement->fetch(PDO::FETCH_ASSOC) ){
-			// achou coordenadas!
-			if (trim($r['ll_latitude'])!='' && trim($r['ll_longitude'])!=''){
-				$coordenadas[0]= trim($r['ll_latitude']);
-				$coordenadas[1]= trim($r['ll_longitude']);
-				$coordenadas[2]= trim($r['ll_uf']);
-				$coordenadas[3]= trim($r['ll_cidade']);
-				$coordenadas[4]= trim($r['ll_bairro']);
-				// grava no db de geolocalização
-				if($rua=='' && abs($coordenadas[0])>0 && abs($coordenadas[1])>0 ){
-                    $pdo->exec("INSERT INTO geolocalizacao (geo_cidade,geo_uf,geo_bairro,geo_pais,geo_latitude,geo_longitude) VALUES ('$cidade','$uf','$bairro','$pais','".$coordenadas[0]."','".$coordenadas[1]."')" );
-					echo "<br>INSERT INTO geolocalizacao (geo_cidade,geo_uf,geo_bairro,geo_pais,geo_latitude,geo_longitude) VALUES ('$cidade','$uf','$bairro','$pais','".$coordenadas[0]."','".$coordenadas[1]."')";
-					//$coordenadas[0]+=rand(-1e4,1e4)/1e7; // soma variação aleatória para não sobrepor pontos, quando não há informação da rua
-					//$coordenadas[1]+=rand(-1e4,1e4)/1e7; // soma variação aleatória para não sobrepor pontos, quando não há informação da rua
-				}
-
-				echo '<br><font color="green">Coordenadas '.$coordenadas[0].','.$coordenadas[1].' encontradas no db de leilões</font><br>';
-				return $coordenadas;
-			}
-		}
 
 		// 3. Busca em no Geocoder do Google (http://stackoverflow.com/questions/3807963/how-to-get-longitude-and-latitude-of-any-address)
 		$endereco=str_replace(',,',',',$rua.','.$bairro.','.$cidade.'-'.$uf.','.$pais);
 		//$coordenadas=array(0,0);
 		if ($permite_google){
 			$coordenadas=geolocalizacao_google($endereco);
-		} else {
-			$sqlqry="SELECT * FROM db_leilao WHERE ll_endereco='' AND ll_cidade='$cidade' AND ll_uf='$uf' AND ll_bairro='' AND ll_pais='$pais' AND ll_latitude!='' AND ll_longitude!='' LIMIT 1";
-	//echo '<br>***'.$sqlqry.'***';        
-			$statement = $pdo->query($sqlqry);
-			if ($r = $statement->fetch(PDO::FETCH_ASSOC) ){
-				// achou coordenadas!
-				if (trim($r['ll_latitude'])!='' && trim($r['ll_longitude'])!=''){
-					$coordenadas[0]= trim($r['ll_latitude']);
-					$coordenadas[1]= trim($r['ll_longitude']);
-					$coordenadas[2]= trim($r['ll_uf']);
-					$coordenadas[3]= trim($r['ll_cidade']);
-					$coordenadas[4]= '';;
-					// grava no db de geolocalização
-
-					echo '<br><font color="green">Coordenadas '.$coordenadas[0].','.$coordenadas[1].' encontradas no db de leilões [proibindo busca no Google]</font><br>';
-					return $coordenadas;
-				}
-			}
 		}
 
 
@@ -2643,33 +2590,12 @@ echo '<BR><BR>endereço:'.$endereco.'<br>vetor:';print_r($coordenadas); //exit;
 			if ($cidade==''){$cidade=$coordenadas[3];}
 			if ($uf==''){$uf=$coordenadas[2];}
 			if ($bairro==''){$bairro=$coordenadas[4];}
-            $pdo->exec("INSERT INTO geolocalizacao (geo_cidade,geo_uf,geo_bairro,geo_pais,geo_latitude,geo_longitude) VALUES ('$cidade','$uf','$bairro','$pais','".$coordenadas[0]."','".$coordenadas[1]."')" );
-			echo "<br>INSERT INTO geolocalizacao (geo_cidade,geo_uf,geo_bairro,geo_pais,geo_latitude,geo_longitude) VALUES ('$cidade','$uf','$bairro','$pais','".$coordenadas[0]."','".$coordenadas[1]."')";
-			//$coordenadas[0]+=rand(-1e4,1e4)/1e7; // soma variação aleatória para não sobrepor pontos, quando não há informação da rua
-			//$coordenadas[1]+=rand(-1e4,1e4)/1e7; // soma variação aleatória para não sobrepor pontos, quando não há informação da rua
 		}
 
 		// 4. Nada funcionou! Busca só cidade, uf, país no db. Se não for Brasil, procura de forma mais ampla ainda
 		if(abs($coordenadas[0])==0 && abs($coordenadas[1])==0 ){
 			if ($bairro!='' || !$permite_google){
 				echo '<br>UTI1 Buscará no db geolocalização...'."SELECT * FROM geolocalizacao WHERE geo_cidade='$cidade' AND geo_uf='$uf' AND geo_pais='$pais' LIMIT 1";
-				$sqlqry="SELECT * FROM geolocalizacao WHERE geo_cidade='$cidade' AND geo_uf='$uf' AND geo_pais='$pais' LIMIT 1";
-                $statement = $pdo->query($sqlqry);
-                if ($r = $statement->fetch(PDO::FETCH_ASSOC) ){
-					// achou coordenadas!
-					if (trim($r['geo_latitude'])!='' && trim($r['geo_longitude'])!=''){
-						$coordenadas[0]= trim($r['geo_latitude']);
-						$coordenadas[1]= trim($r['geo_longitude']);
-						$coordenadas[2]= $uf;
-						$coordenadas[3]= $cidade;
-						$coordenadas[4]= '';
-						//$coordenadas[0]+=rand(-1e4,1e4)/1e7; // soma variação aleatória para não sobrepor pontos, quando não há informação da rua
-						//$coordenadas[1]+=rand(-1e4,1e4)/1e7; // soma variação aleatória para não sobrepor pontos, quando não há informação da rua
-						echo '<br><font color="orange">Coordenadas '.$coordenadas[0].','.$coordenadas[1].' encontradas no db de geolocalização só cidade, uf, país</font><br>';
-						if (!$permite_google){echo '[proibindo google]';}
-						return $coordenadas;
-					}
-				} else {
 					// 3. Busca em no Geocoder do Google (http://stackoverflow.com/questions/3807963/how-to-get-longitude-and-latitude-of-any-address)
 					if ($permite_google){
 						$endereco=str_replace(',,',',',$cidade.'-'.$uf.','.$pais);
@@ -2680,36 +2606,15 @@ echo '<BR><BR>endereço:'.$endereco.'<br>vetor:';print_r($coordenadas); //exit;
 							if ($uf==''){$uf=$coordenadas[2];}
 							if ($bairro==''){$bairro=$coordenadas[4];}
 
-							$pdo->exec("INSERT INTO geolocalizacao (geo_cidade,geo_uf,geo_pais,geo_latitude,geo_longitude) VALUES ('$cidade','$uf','$pais','".$coordenadas[0]."','".$coordenadas[1]."')" );
-							echo "<br>INSERT INTO geolocalizacao (geo_cidade,geo_uf,geo_pais,geo_latitude,geo_longitude) VALUES ('$cidade','$uf','$pais','".$coordenadas[0]."','".$coordenadas[1]."')";
-							//$coordenadas[0]+=rand(-1e4,1e4)/1e7; // soma variação aleatória para não sobrepor pontos, quando não há informação da rua
-							//$coordenadas[1]+=rand(-1e4,1e4)/1e7; // soma variação aleatória para não sobrepor pontos, quando não há informação da rua
 							echo '<br><font color="orange">Coordenadas '.$coordenadas[0].','.$coordenadas[1].' encontradas no google só cidade, uf, país</font><br>';
 							return $coordenadas;
 						}
 					}
-				}
+				
 			}
 
 			if (strtoupper($pais)!='BRASIL'){
 				// só uf e país
-				$sqlqry="SELECT * FROM geolocalizacao WHERE geo_uf='$uf' AND geo_pais='$pais' LIMIT 1";
-                $statement = $pdo->query($sqlqry);
-                if ($r = $statement->fetch(PDO::FETCH_ASSOC) ){
-					// achou coordenadas!
-					if (trim($r['geo_latitude'])!='' && trim($r['geo_longitude'])!=''){
-						$coordenadas[0]= trim($r['geo_latitude']);
-						$coordenadas[1]= trim($r['geo_longitude']);
-						$coordenadas[2]= $uf;
-						$coordenadas[3]= '';
-						$coordenadas[4]= '';
-
-						//$coordenadas[0]+=rand(-1e4,1e4)/1e7; // soma variação aleatória para não sobrepor pontos, quando não há informação da rua
-						//$coordenadas[1]+=rand(-1e4,1e4)/1e7; // soma variação aleatória para não sobrepor pontos, quando não há informação da rua
-						echo '<br><font color="pink">Coordenadas '.$coordenadas[0].','.$coordenadas[1].' encontradas no db de geolocalização só uf e país</font><br>';
-						return $coordenadas;
-					}
-				} else {
 					// 3. Busca em no Geocoder do Google (http://stackoverflow.com/questions/3807963/how-to-get-longitude-and-latitude-of-any-address)
 					if ($permite_google){
 						$endereco=str_replace(',,',',',$uf.','.$pais);
@@ -2717,46 +2622,23 @@ echo '<BR><BR>endereço:'.$endereco.'<br>vetor:';print_r($coordenadas); //exit;
 						// grava no db de geolocalização
 						if(abs($coordenadas[0])>0 && abs($coordenadas[1])>0 ){
 							if ($uf==''){$uf=$coordenadas[2];}
-							$pdo->exec("INSERT INTO geolocalizacao (geo_uf,geo_pais,geo_latitude,geo_longitude) VALUES ('$uf','$pais','".$coordenadas[0]."','".$coordenadas[1]."')" );
-							echo "<br>INSERT INTO geolocalizacao (geo_uf,geo_pais,geo_latitude,geo_longitude) VALUES ('$uf','$pais','".$coordenadas[0]."','".$coordenadas[1]."')";
-							//$coordenadas[0]+=rand(-1e4,1e4)/1e7; // soma variação aleatória para não sobrepor pontos, quando não há informação da rua
-							//$coordenadas[1]+=rand(-1e4,1e4)/1e7; // soma variação aleatória para não sobrepor pontos, quando não há informação da rua
+
 							echo '<br><font color="pink">Coordenadas '.$coordenadas[0].','.$coordenadas[1].' encontradas no google só uf e país</font><br>';
 							return $coordenadas;
 						}
-					}
+					
 				}
-				$sqlqry="SELECT * FROM geolocalizacao WHERE geo_pais='$pais' LIMIT 1";
-                $statement = $pdo->query($sqlqry);
-                if ($r = $statement->fetch(PDO::FETCH_ASSOC) ){
-					// achou coordenadas!
-					if (trim($r['geo_latitude'])!='' && trim($r['geo_longitude'])!=''){
-						$coordenadas[0]= trim($r['geo_latitude']);
-						$coordenadas[1]= trim($r['geo_longitude']);
-						$coordenadas[2]= '';
-						$coordenadas[3]= '';
-						$coordenadas[4]= '';
-
-						//$coordenadas[0]+=rand(-1e4,1e4)/1e7; // soma variação aleatória para não sobrepor pontos, quando não há informação da rua
-						//$coordenadas[1]+=rand(-1e4,1e4)/1e7; // soma variação aleatória para não sobrepor pontos, quando não há informação da rua
-						echo '<br><font color="pink">Coordenadas '.$coordenadas[0].','.$coordenadas[1].' encontradas no db de geolocalização só país</font><br>';
-						return $coordenadas;
-					}
-				} else {
 					// 3. Busca em no Geocoder do Google (http://stackoverflow.com/questions/3807963/how-to-get-longitude-and-latitude-of-any-address)
 					if ($permite_google){
 						$endereco=str_replace(',,',',',$pais);
 						$coordenadas=geolocalizacao_google($endereco);
 						// grava no db de geolocalização
 						if(abs($coordenadas[0])>0 && abs($coordenadas[1])>0 ){
-							$pdo->exec("INSERT INTO geolocalizacao (geo_pais,geo_latitude,geo_longitude) VALUES ('$pais','".$coordenadas[0]."','".$coordenadas[1]."')" );
-							echo "<br>INSERT INTO geolocalizacao (geo_pais,geo_latitude,geo_longitude) VALUES ('$pais','".$coordenadas[0]."','".$coordenadas[1]."')";
-							//$coordenadas[0]+=rand(-1e4,1e4)/1e7; // soma variação aleatória para não sobrepor pontos, quando não há informação da rua
-							//$coordenadas[1]+=rand(-1e4,1e4)/1e7; // soma variação aleatória para não sobrepor pontos, quando não há informação da rua
+
 							echo '<br><font color="pink">Coordenadas '.$coordenadas[0].','.$coordenadas[1].' encontradas no google só país</font><br>';
 							return $coordenadas;
 						}
-					}
+					
 				}
 			}
 		}
@@ -2771,6 +2653,10 @@ echo '<BR><BR>endereço:'.$endereco.'<br>vetor:';print_r($coordenadas); //exit;
 }
 
 function geolocalizacao_google($endereco){
+
+	$coordenadas[0]= 27;
+	$coordenadas[1]= -14;
+	return $coordenadas;
 	// 2018 09 incluído componentes de endereço
 /*    [0] => -25.4375405 lat
     [1] => -49.1989018 lnt
