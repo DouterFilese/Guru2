@@ -1560,6 +1560,153 @@ function autoriza_precad_robos_botll_consulta () {
 
 function arrumadata_robos ($texto,$tipo='1',$invertemes=false) {
 
+
+	$texto=limpacaracteresespeciais($texto); // 2022 01 17
+	// tipo 7: Y m d H i
+  if ((int)sonumeros($texto)==0){
+      return false;
+  }
+  if ($tipo=='6'){
+		$meses = array("JAN" => "01","FEB" => "02","MAR" => "03","APR" => "04","MAY" => "05","JUN" => "06","JUL" => "07","AUG" => "08","SEP" => "09","OCT" => "10","NOV" => "11","DEC" => "12",
+		"JAN" => "01","FEV" => "02","MAR" => "03","ABR" => "04","MAI" => "05","JUN" => "06","JUL" => "07","AGO" => "08","SET" => "09","OUT" => "10","NOV" => "11","DEZ" => "12",
+		"JAN" => "01","FEB" => "02","MAR" => "03","APR" => "04","MAY" => "05","JUN" => "06","JUL" => "07","AUG" => "08","SEP" => "09","OCT" => "10","NOV" => "11","DEC" => "12"
+		);
+		$texto=strtoupper($texto);
+		$texto=str_replace(" de ",' ',str_replace(', a partir das ','/',str_replace('min.','',str_replace('às','/',str_replace('horas','/',str_replace(' s ','/',str_replace(' ã','/',$texto)))))));
+		$texto=str_replace(":","/",str_replace("-","/",preg_replace('/\s\s+/', ' ',str_replace(".","/",$texto))));
+		$texto=str_replace(',',' ',$texto);
+		$data0 = explode("/", $texto);
+		$texto2='';
+
+		if (sizeof($data0)<3){
+			$texto=str_replace(" ","/",limpaespacos($texto));
+			$data0 = explode("/", $texto);
+		}
+	
+		for ($i=0; $i<count($data0); $i++) {
+			if ($meses[$data0[$i]]!=''){
+				$texto2 .= $meses[$data0[$i]];
+			} else {
+				$texto2.=$data0[$i];
+			}
+	
+		$texto2 .='/';
+	}
+	$texto2=str_replace('h','/',$texto2);
+	$texto2=str_replace(',',' ',$texto2);
+	$texto2_=$texto2;
+	$texto2=str_replace(" ","",$texto2);
+	$data1 = explode("/", $texto2);
+/*	if (sizeof($data1)<3){
+		$texto2=str_replace(" ","/",limpaespacos($texto2_));
+		$data1 = explode("/", $texto2);
+		$texto=$texto2;
+	}*/
+	$incremento=0;
+
+	if ($texto!='' && sizeof($data1)>=3){
+		while ((int)$data1[$incremento]==0){$incremento+=1;}
+		if (is_numeric($data1[$incremento+2])){	if ($data1[$incremento+2]<100){$data1[$incremento+2]+=2000;}}
+		if ($data1[$incremento+6]=='PM'){if (is_numeric($data1[$incremento+3])){$data1[$incremento+3]+=12;}}
+
+		if ($data1[$incremento+5]=='PM'){if (is_numeric($data1[$incremento+3])){$data1[$incremento+3]+=12;}}
+		if ($invertemes==false){
+			return trim(sprintf("%40d", (int)$data1[$incremento+2]) . sprintf("%02d", (int)preg_replace("/[^a-zA-Z0-9_]/", "",$data1[$incremento+1])) . sprintf("%02d", (int)$data1[$incremento]) . sprintf("%02d", (int)$data1[$incremento+3]) . sprintf("%02d", (int)$data1[$incremento+4]) );
+		} else {
+            return trim(sprintf("%40d", (int)$data1[$incremento+2]) . sprintf("%02d", (int)preg_replace("/[^a-zA-Z0-9_]/", "",$data1[$incremento])) . sprintf("%02d", (int)$data1[$incremento+1]) . sprintf("%02d", (int)$data1[$incremento+3]) . sprintf("%02d", (int)$data1[$incremento+4]) );
+		}
+	}
+  }
+  if ($tipo=='5'){
+
+		$meses = array("janeiro" => "/01/","fevereiro" => "/02/","março" => "/03/","abril" => "/04/","maio" => "/05/","junho" => "/06/","julho" => "/07/","agosto" => "/08/","setembro" => "/09/","outubro" => "/10/","novembro" => "/11/","dezembro" => "/12/",
+		"january" => "/01/","february" => "/02/","march" => "/03/","april" => "/04/","may" => "/05/","june" => "/06/","july" => "/07/","august" => "/08/","september" => "/09/","october" => "/10/","november" => "/11/","december" => "/12/",
+		"enero" => "/01/","febrero" => "/02/","marzo" => "/03/","abril" => "/04/","mayo" => "/05/","junio" => "/06/","julio" => "/07/","agosto" => "/08/","septiembre" => "/09/","octubre" => "/10/","noviembre" => "/11/","diciembre" => "/12/",);
+			$texto=strtolower($texto);
+			$texto=str_replace(" de ",' ',str_replace(', a partir das ','/',str_replace('min.','',str_replace('às','/',str_replace('horas','/',str_replace(' s ','/',str_replace(' ã','/',$texto)))))));
+			$texto=str_replace(":","/",str_replace("-","/",preg_replace('/\s\s+/', ' ',str_replace(".","/",$texto))));
+			$texto=str_replace(',',' ',$texto);
+			$data0 = explode(" ", limpaespacos($texto));
+
+			$texto2='';
+			for ($i=0; $i<count($data0); $i++) {
+				if ($meses[$data0[$i]]!=''){
+					$texto2 .= $meses[$data0[$i]];
+				}else{
+					$texto2.=$data0[$i];
+				}
+			}
+
+			
+	$data0 = explode("/", $texto2);
+
+	$texto2='';
+	for ($i=0; $i<count($data0); $i++) {
+		if ($texto2!=''){$texto2.='/';}
+		if ($meses[$data0[$i]]!=''){$texto2 .= $meses[$data0[$i]];}else{$texto2.=$data0[$i];}
+	}
+	$texto2=str_replace('//','/',$texto2);
+
+
+	$texto2=str_replace('h','/',$texto2);
+	$texto2=limpacaracteresfantasma(str_replace(" ","",$texto2));
+
+	$data1 = explode("/", $texto2);
+
+	$incremento=0;
+	if ($texto!='' && sizeof($data1)>=3){
+		while ((int)sonumeros_sem_virgula ($data1[$incremento])==0){$incremento+=1;}
+		if ((int)$data1[$incremento+2]<100){$data1[$incremento+2]=(int)$data1[$incremento+2]+2000;}
+				if ($data1[$incremento+5]=='PM'){$data1[$incremento+3]+=12;}
+				if (!$invertemes){
+					return trim(sprintf("%40d", (int)$data1[$incremento+2]) . sprintf("%02d", (int)$data1[$incremento+1]) . sprintf("%02d", (int)preg_replace("/[^a-zA-Z0-9_]/", "",$data1[$incremento])) . sprintf("%02d", (int)$data1[$incremento+3]) . sprintf("%02d", (int)$data1[$incremento+4]) );
+				} else {
+						return trim(sprintf("%40d", (int)$data1[$incremento+2]) . sprintf("%02d", (int)preg_replace("/[^a-zA-Z0-9_]/", "",$data1[$incremento])) . sprintf("%02d", (int)$data1[$incremento+1]) . sprintf("%02d", (int)$data1[$incremento+3]) . sprintf("%02d", (int)$data1[$incremento+4]) );
+				}
+		}
+  }
+  if ($tipo=='2'||$tipo=='4'){
+    $texto=str_replace(" ","/",$texto);
+    if ($tipo=='2'){$tipo='1';}else{$tipo='3';}
+  }
+  if ($tipo=='1'||$tipo=='3'||$tipo=='7'){
+      if ($tipo=='1'){$texto=str_replace(" ","",str_replace(":","/",str_replace("-","/",preg_replace('/\s\s+/', ' ',str_replace(".","/",$texto)))));}
+      if ($tipo=='3'){$texto=str_replace(" ","",str_replace(":","/",str_replace("-","/",preg_replace('/\s\s+/', ' ',$texto))));}
+      $data1 = explode("/", $texto);
+      $incremento=0;
+      if ($texto!='' && sizeof($data1)>=3){
+
+          while ((int)$data1[$incremento]==0 && $incremento<200){$incremento+=1;}
+			if ($tipo!='7'){
+			  if ((int)$data1[$incremento+2]<100){$data1[$incremento+2]=(int)$data1[$incremento+2]+2000;}
+			  if ($data1[$incremento+2]>(date("Y")+3)){return false;}
+			  if ($invertemes==false){
+				if ($data1[$incremento+5]=='PM'){$data1[$incremento+3]+=12;}
+				  if ((int)$data1[$incremento]>31){$data1[$incremento]=0;}
+
+				  return trim(sprintf("%40d", (int)$data1[$incremento+2]) . sprintf("%02d", (int)$data1[$incremento+1]) . sprintf("%02d", (int)$data1[$incremento]) . sprintf("%02d", (int)$data1[$incremento+3]) . sprintf("%02d", (int)$data1[$incremento+4]) );
+			  } else {
+				  if ((int)$data1[$incremento+1]>31){$data1[$incremento+1]=0;}
+				if ($data1[$incremento+5]=='PM'){$data1[$incremento+3]+=12;}
+				return trim(sprintf("%40d", (int)$data1[$incremento+2]) . sprintf("%02d", (int)$data1[$incremento]) . sprintf("%02d", (int)$data1[$incremento+1]) . sprintf("%02d", (int)$data1[$incremento+3]) . sprintf("%02d", (int)$data1[$incremento+4]) );
+			  }
+		  } else {
+			  if ($data1[$incremento]<100){$data1[$incremento]+=2000;}
+			  if ($data1[$incremento]>(date("Y")+3)){return false;}
+			  if ($invertemes==false){
+				if ($data1[$incremento+5]=='PM'){$data1[$incremento+3]+=12;}
+				return trim(sprintf("%40d", (int)$data1[$incremento]) . sprintf("%02d", (int)$data1[$incremento+1]) . sprintf("%02d", (int)$data1[$incremento+2]) . sprintf("%02d", (int)$data1[$incremento+3]) . sprintf("%02d", (int)$data1[$incremento+4]) );
+			  } else {
+				if ($data1[$incremento+5]=='PM'){$data1[$incremento+3]+=12;}
+				return trim(sprintf("%40d", (int)$data1[$incremento]) . sprintf("%02d", (int)$data1[$incremento+2]) . sprintf("%02d", (int)$data1[$incremento+1]) . sprintf("%02d", (int)$data1[$incremento+3]) . sprintf("%02d", (int)$data1[$incremento+4]) );
+			  }
+		  }
+      }
+  }
+}
+
+function arrumadata_robos_v0 ($texto,$tipo='1',$invertemes=false) {
+
 	// tipo 7: Y m d H i
   if ((int)sonumeros($texto)==0){
       return false;
