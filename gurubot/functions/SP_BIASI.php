@@ -36,7 +36,6 @@ while(  $card=isolar(str_replace('</main>','<div class="col-xs-12 col-sm-6 col-m
 
 
 
-
 		$listagem_cards_internos= char_convert(http_get_curl('https://www.biasileiloes.com.br/Sale/LotList?id='.$numero_leilao.'&start=0&limit=99999&cat=todas-categorias&term=&vendaDireta=false','ie',false,true));
 
 //echo $listagem_cards_internos; exit;
