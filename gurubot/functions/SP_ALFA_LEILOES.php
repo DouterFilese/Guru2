@@ -276,9 +276,9 @@ function cadastraSP_ALFA_LEILOES($resp,$nome_categoria,$nome_subcategoria){
         $ll_lance_min_2 = str_replace(',','.',str_replace('.','',str_replace('R$','',stristr($lances[10],'</div>',true))));					 
 		$resp['ll_lance_min_2'] = trim($ll_lance_min_2); // lance m?nimo da segunda pra?a [varchar 32]
 
-        $ll_processo = isolar($conteudo_extraido,'<strong>Processo</strong><br>','target="_blank">','</a>');
+        $ll_processo = isolar($conteudo_extraido,'Processo</strong><br class="prevent-select">','target="_blank">','</a>');
 		$resp['ll_processo'] = $ll_processo;// n?mero do processo, quando dispon?vel [varchar 64]
-
+        
 		$resp['ll_categoria_rotulo'] = $nome_subcategoria;// texto da ?ltima categoria ao qual o lote de enquadra. Exemplo: "UTILIT?RIOS" ,"TRATOR", "TERRENO", "APARTAMENTO", "CASA" ** SEMPRE QUE SE TRATAR DE SUCATA, CADASTRAR COM O TERMO "SUCATA" [varchar 64]
        // $categoria_txt
         if($nome_subcategoria){
@@ -297,14 +297,42 @@ function cadastraSP_ALFA_LEILOES($resp,$nome_categoria,$nome_subcategoria){
 		}
 		
 
-        $endereco = isolar($conteudo_extraido,'<h1 class="title-lote">','','</h1>');
-        $endereco = stristr($endereco,')',true);
-        $ll_endereco = str_replace('&nbsp;','',isolar($conteudo_extraido,'Situad','<u>','/u>'));
-		$resp['ll_endereco'] = str_replace('<','',$ll_endereco);// Endere?o. Quando for im?vel, usar sua localiza??o. Quando outra categoria sem esta informa??o, incluir localiza??o do p?tio do leiloeiro [varchar 256]
-        $ll_bairro = isolar($ll_endereco,'no bairro','','<');
-		$resp['ll_bairro'] = $ll_bairro;// bairro. Quando for im?vel, usar sua localiza??o. Quando outra categoria sem esta informa??o, incluir localiza??o do p?tio do leiloeiro [varchar 128]
-		$resp['ll_cidade'] = trim(stristr($endereco,'(',true));// cidade [varchar 128]
-		$resp['ll_uf'] = trim(str_replace('(','',stristr($endereco,'(')));// UF/ sigla do estado [varchar 2]
+        $endereco = isolar_limpo($conteudo_extraido,'.</strong><br />','','.<br />');
+        // $endereco = stristr($endereco,')',true);
+        // $endereco = isolar_limpo($endereco,'Situado na','','Dona Amélia');
+        //  echo $endereco;exit;
+        $ll_endereco =  $endereco;
+		$resp['ll_endereco'] = str_replace('<','',$ll_endereco);
+        $bairro_cidade = isolar($ll_endereco,',',',','.');
+        $caractere_marcao = '#';
+        $bairro_cidadeMarcado = $caractere_marcao . $bairro_cidade . $caractere_marcao;
+        // echo $bairro_cidadeMarcado;exit;
+        
+        //identificador de padroes, no site existem 2 padroes de escrita que sao usados para tirar informaçoes para os respesctivos lugar essa funçao identifica qual e qual e escolhe a correta para pegar as informaçoes sem erros.
+            if (strpos($bairro_cidadeMarcado, 'de') !== false) {
+                // Primeiro caso: "bairro na cidade de cidade"
+                
+
+                $ll_bairro = isolar($bairro_cidadeMarcado,'#','','de');
+                $cidade= isolar($bairro_cidadeMarcado,'de','','/');
+
+               
+            } elseif (strpos($bairro_cidadeMarcado, ',') !== false) {
+                // Segundo caso: "bairro, cidade"
+                
+                
+                $ll_bairro = isolar($bairro_cidadeMarcado,'#','',',');
+                $cidade= isolar($bairro_cidadeMarcado,',','','/');
+            } else {
+                // Caso não seja identificado nenhum dos padrões
+                echo "Formato inválido para a variável \$bairro_cidade.";
+            }
+        
+        $resp['ll_bairro_cidadeMarcado'] = $bairro_cidadeMarcado;
+		$resp['ll_bairro'] = $ll_bairro;
+		$resp['ll_cidade'] = $cidade;
+		$resp['ll_uf'] = isolar($barro_cidadeMarcado,'/','','#');
+        $resp["ll_numero"] = ('nº' . isolar($endereco,'nº','',','));
 
         
 		if (str_replace('IMÓVE','',capitalizacao_str($resp['ll_categoria_txt']))!=capitalizacao_str($resp['ll_categoria_txt']) || str_replace('IMOVE','',capitalizacao_str($resp['ll_categoria_txt']))!=capitalizacao_str($resp['ll_categoria_txt']) ){
@@ -326,18 +354,16 @@ function cadastraSP_ALFA_LEILOES($resp,$nome_categoria,$nome_subcategoria){
 
         //$ll_detalhes = str_replace('&nbsp;','',str_replace('</div>','',str_replace('<p style="margin-left:0cm; margin-right:0cm">','',str_replace('<strong>','',str_replace('</strong>','',str_replace('<u>','',str_replace('</u>','',isolar($conteudo_extraido,'<h3 class="aberto">Descri','<div class="scroll">','<div class="abertura-em aberto">'))))))));
         $ll_detalhes = isolar($conteudo_extraido,'<h3 class="aberto">Descri','<div class="scroll">','<div class="abertura-em aberto">');
-       // $inicio_detalhes = stristr($ll_detalhes,'<a',true);
-      //  $final_detalhes = stristr($ll_detalhes,'</a>');
-       // $ll_detalhes = str_replace('</a>','',$inicio_detalhes.$final_detalhes);
+        // $inicio_detalhes = stristr($ll_detalhes,'<a',true);
+        //  $final_detalhes = stristr($ll_detalhes,'</a>');
+        // $ll_detalhes = str_replace('</a>','',$inicio_detalhes.$final_detalhes);
         //$resp['inicio_detalhes'] = $inicio_detalhes;
         //$resp['Final_detalhes'] = $final_detalhes;
 		$resp['ll_detalhes']=limpahtml(limpaespacos(str_replace('~ ~','~',str_replace('</p>','~',str_replace('<p>','~',str_replace('.~ .~ ','.~ ',str_replace('.~ .~ ','.~ ',str_replace('.~ .~ ','.~ ',str_replace('.~ .~ ','.~ ',str_replace('.~ .~ ','.~ ',str_replace('.~ .~ ','.~ ',str_replace('.~ .~ ','.~ ',
 		str_replace(chr(10),' ',str_replace('<br>','.~ ',str_replace('<br />','~',$ll_detalhes)))))))))))))));
 		//$resp["ll_avaliacao"] = $ll_avaliacao;		
-		$resp["ll_numero"] = $ll_numero;
         $ll_descricao = isolar($conteudo_extraido,'<h1 class="title-lote">','','</h1>');
 		$resp['ll_descricao'] = $ll_descricao;// descri??o sint?tica do lote (t?tulo) [varchar 256]
-		$resp['ll_marca'] = $ll_marca; //'TOYOTA' //  [varchar 64]
 		$resp['ll_modelo'] = $ll_modelo;// 'YARIS' //  [varchar 64]
 		$resp['ll_capacidade'] = $ll_capacidade; //  [varchar 32]
         $ll_ano_modelo = isolar($conteudo_extraido,'<h3 class="aberto">Descri','Ano',',');

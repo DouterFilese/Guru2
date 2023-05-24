@@ -8,7 +8,7 @@
 date_default_timezone_set('America/Sao_Paulo');
 
 function VerificaCadastroLeilao($resp,$ignora_db_secundario=false,$idminimo=0,$excluidos=array()){
-	$porcentagem_sem_cadastro=40; // preencher de 0 a 100
+	$porcentagem_sem_cadastro=100; // preencher de 0 a 100
 	if (rand(1,100)<=$porcentagem_sem_cadastro){
 		echo '<br><small><i>
 * Considerada <b>não cadastrada</b> (configurado '.$porcentagem_sem_cadastro.'% dos leilões não cadastrados). Para mudar, altere $porcentagem_sem_cadastro na rotina VerificaCadastroLicitacao, em gurubot/functions/gurugeral.php

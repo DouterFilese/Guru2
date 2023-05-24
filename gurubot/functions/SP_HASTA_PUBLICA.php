@@ -163,7 +163,7 @@ function cadastra_SITE_SP_HASTA_PUBLICA ($resp,$ll_categoria_txt){
 				$contapix+=1;
 				if ($contapix<=8){
 
-echo '<br>Foto original: '.$pix;
+ '<br>Foto original: '.$pix;
 					$resp['ll_foto_'.$contapix]=$pix;
 				} else {
 					$pix0='';

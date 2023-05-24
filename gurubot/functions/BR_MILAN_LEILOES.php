@@ -224,8 +224,8 @@ xxxxxxxxxxxxxxxxxx
 
 						if (strlen(trim($resp['ll_cidade']))<3){$resp['ll_cidade']='';}
 						if ($resp['ll_uf']!=''){
-                            $statement = $pdo->query("SELECT * FROM geolocalizacao WHERE geo_uf='".$resp['ll_uf']."' AND cod_IBGE>0 LIMIT 1");
-                            if (!$statement->fetch(PDO::FETCH_ASSOC) ) {$resp['ll_uf']='';$resp['ll_cidade']='';}
+                            // $statement = $pdo->query("SELECT * FROM geolocalizacao WHERE geo_uf='".$resp['ll_uf']."' AND cod_IBGE>0 LIMIT 1");
+                            // if (!$statement->fetch(PDO::FETCH_ASSOC) ) {$resp['ll_uf']='';$resp['ll_cidade']='';}
 						}
 
 						if ($resp['ll_uf']==''){$resp['ll_cidade']='';}

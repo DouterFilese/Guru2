@@ -108,8 +108,8 @@ $proximo_card[2]=0;
 fimdolaco:
 
 
-if ($atingiutempolimite==true){
-	// não terminou!
+ if ($atingiutempolimite==true){
+	 não terminou!
     organizador_tempo_limite_atingido (SITE_SP_ALBINO,$conta_cards."/".$proximo_card[1]."/".$proximo_card[2]);
 echo '***
 tempo limite
